@@ -1,0 +1,33 @@
+# To set some of these values for specific deployment
+# environments, please modify deployment/${env}.yaml
+# file instead.
+#
+# This override file will be applied on top of these global
+# defaults.
+global:
+  # These values are overwritten by the argocd raicloud apps
+  # So you don't have to set/edit them here.
+  env: dev1
+  registry: raiclouddev.azurecr.io
+  domain: azure-dev1.relationalai.com
+  agwPrivateIp: 10.202.0.42
+  enginesNamespace: "rai-engines"
+  cosmosdbAccount: "rai-dev1-cosmosdb"
+  # defaultImageTag controls the version for api services.
+  # To override this default for individual services,
+  # $component.imageTag can be used.
+  defaultImageTag: "2023.2.7-5d990ee66"
+  # if minimal is set to true, we only run 1 replica of fe services
+  # and disable horizontal pod autoscalers. Suitable for cheap dev
+  # environments.
+  minimal: false
+  # identity bindings are only required in one namespace. So we disable them in the skaffold and PRs workflows
+  enableIdentityBindings: true
+  # If set to false, cronjob components will not be created. This is generally useful
+  # when running multiple copies of this in the same cluster (e.g. pr testing).
+  # In general, cron jobs are not build to support multiple instances running at the
+  # same time.
+  enableCronjobs: true
+auth0:
+  loginDomain: relationalai-dev1.us.auth0.com
+  audience: azure-dev1.relationalai.com
